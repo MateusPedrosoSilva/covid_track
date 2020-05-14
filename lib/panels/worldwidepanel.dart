@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class WorldWidePanel extends StatelessWidget {
+  final Map worldData;
+
+  const WorldWidePanel({Key key, this.worldData}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,10 +16,30 @@ class WorldWidePanel extends StatelessWidget {
           childAspectRatio: 2,
         ),
         children: <Widget>[
-          StatusPanel(),
-          StatusPanel(),
-          StatusPanel(),
-          StatusPanel(),
+          StatusPanel(
+            title: 'CONFIRMED',
+            panelColor: Colors.red[100],
+            textColor: Colors.red,
+            count: worldData['cases'].toString(),
+          ),
+          StatusPanel(
+            title: 'ACTIVE',
+            panelColor: Colors.blue[100],
+            textColor: Colors.blue[900],
+            count: worldData['active'].toString(),
+          ),
+          StatusPanel(
+            title: 'RECOVERED',
+            panelColor: Colors.green[100],
+            textColor: Colors.green,
+            count: worldData['recovered'].toString(),
+          ),
+          StatusPanel(
+            title: 'DEATHS',
+            panelColor: Colors.grey[400],
+            textColor: Colors.grey[900],
+            count: worldData['deaths'].toString(),
+          ),
         ],
       ),
     );
@@ -23,6 +47,15 @@ class WorldWidePanel extends StatelessWidget {
 }
 
 class StatusPanel extends StatelessWidget {
+  final Color panelColor;
+  final Color textColor;
+  final String title;
+  final String count;
+
+  const StatusPanel(
+      {Key key, this.panelColor, this.textColor, this.title, this.count})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // Width of the device.
@@ -31,21 +64,23 @@ class StatusPanel extends StatelessWidget {
       height: 80,
       width: width / 2,
       margin: EdgeInsets.all(10.0),
-      color: Colors.blue[100],
+      color: panelColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'CONFIRMED',
+            title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: textColor,
               fontSize: 16,
             ),
           ),
           Text(
-            '1234',
+            count,
             style: TextStyle(
               fontWeight: FontWeight.bold,
+              color: textColor,
               fontSize: 16,
             ),
           ),

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:covidapp/datasorce.dart';
 import 'package:covidapp/panels/worldwidepanel.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +11,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Map worldData;
+  fetchWorldwideData() async {
+    http.Response response = await http.get('https://corona.lmao.ninja/v2/all');
+    setState(() {
+      worldData = json.decode(response.body);
+    });
+  }
+
+  List countryData;
+  fetchCountryData() async {
+    http.Response response =
+        await http.get('https://corona.lmao.ninja/v2/countries');
+    setState(() {
+      countryData = json.decode(response.body);
+    });
+  }
+
+  @override
+  void initState() {
+    fetchWorldwideData();
+    fetchCountryData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,15 +65,45 @@ class _HomePageState extends State<HomePage> {
                 vertical: 10.0,
                 horizontal: 10.0,
               ),
-              child: Text(
-                'WorldWide',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'WorldWide',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                        color: primaryBlack,
+                        borderRadius: BorderRadius.circular(15.0)),
+                    child: Text(
+                      'REGIONAL',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
-            WorldWidePanel(),
+            worldData == null
+                ? CircularProgressIndicator()
+                : WorldWidePanel(
+                    worldData: worldData,
+                  ),
+            Text(
+              'Most affected countries',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+            )
           ],
         ),
       ),
