@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:covidapp/datasorce.dart';
+import 'package:covidapp/panels/mosteffectedcontries.dart';
 import 'package:covidapp/panels/worldwidepanel.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -97,13 +98,19 @@ class _HomePageState extends State<HomePage> {
                 : WorldWidePanel(
                     worldData: worldData,
                   ),
-            Text(
-              'Most affected countries',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 22,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                'Most affected countries',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
               ),
-            )
+            ),
+            countryData == null
+                ? Container()
+                : MostAffectedPanel(countryData: countryData),
           ],
         ),
       ),
