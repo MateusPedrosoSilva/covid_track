@@ -22,8 +22,8 @@ class _HomePageState extends State<HomePage> {
 
   List countryData;
   fetchCountryData() async {
-    http.Response response =
-        await http.get('https://corona.lmao.ninja/v2/countries');
+    http.Response response = await http
+        .get('https://disease.sh/v2/countries?yesterday=false&sort=deaths');
     setState(() {
       countryData = json.decode(response.body);
     });
@@ -108,6 +108,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            SizedBox(height: 10),
             countryData == null
                 ? Container()
                 : MostAffectedPanel(countryData: countryData),
