@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:covidapp/datasorce.dart';
+import 'package:covidapp/panels/infoPanel.dart';
 import 'package:covidapp/panels/mosteffectedcontries.dart';
 import 'package:covidapp/panels/worldwidepanel.dart';
 import 'package:flutter/material.dart';
@@ -112,6 +113,8 @@ class _HomePageState extends State<HomePage> {
             countryData == null
                 ? Container()
                 : MostAffectedPanel(countryData: countryData),
+            InfoPanel(),
+            SizedBox(height: 50),
           ],
         ),
       ),

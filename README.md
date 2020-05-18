@@ -8,5 +8,6 @@ This app is a case for study API consuming with Flutter.
 
 Features:
 - Show Worldwide data;
+- Show Most affected countries
 
 Data get from: [https://corona.lmao.ninja](https://corona.lmao.ninja)
