@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:covidapp/datasorce.dart';
+import 'package:covidapp/pages/countryPage.dart';
 import 'package:covidapp/panels/infoPanel.dart';
 import 'package:covidapp/panels/mosteffectedcontries.dart';
 import 'package:covidapp/panels/worldwidepanel.dart';
@@ -77,17 +78,25 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 22,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        color: primaryBlack,
-                        borderRadius: BorderRadius.circular(15.0)),
-                    child: Text(
-                      'REGIONAL',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CountryPage()));
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                          color: primaryBlack,
+                          borderRadius: BorderRadius.circular(15.0)),
+                      child: Text(
+                        'REGIONAL',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   )
@@ -114,6 +123,16 @@ class _HomePageState extends State<HomePage> {
                 ? Container()
                 : MostAffectedPanel(countryData: countryData),
             InfoPanel(),
+            SizedBox(height: 20),
+            Center(
+              child: Text(
+                'WE ARE TOGETHER IN THIS FIGHT!',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             SizedBox(height: 50),
           ],
         ),
